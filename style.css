@@ -1,0 +1,37 @@
+.hero {
+  width: 100%;
+  height: 100vh;
+  padding: 4rem 2rem;
+  text-align: center;
+  background-image: url("images/poc-image-a.png");
+  background-size: cover;
+}
+
+.hero h1 {
+  color: #ffffff;
+}
+
+.section {
+  display: flex;
+  width: 100%;
+  gap: 0;
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.section-start-onscreen {
+  flex: 1 1 100%;
+  transition: flex-basis 0.5s ease;
+  padding: 2rem;
+}
+.section-start-offscreen-right {
+  flex: 0 0 0%;
+  opacity: 0;
+}
+
+.slide-in {
+  position: relative; /* Set offest so image is offscreen */
+  will-change: transform;
+}
