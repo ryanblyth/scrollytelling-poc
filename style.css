@@ -5,6 +5,11 @@
   text-align: center;
   background-image: url("images/poc-image-a.png");
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .hero h1 {
@@ -21,6 +26,9 @@
   margin: 0 auto;
   /* overflow: hidden; */
 }
+
+/* BeginSection - Image | Slide | From Right | Duration */
+
 .section-start-onscreen {
   flex: 1 1 100%;
   transition: flex-basis 0.5s ease;
@@ -31,13 +39,14 @@
   opacity: 0;
 }
 
-.slide-in {
+.animate-slide-from-right-duration {
   position: relative; /* Set offest so image is offscreen */
+  margin: 0 auto;
   will-change: transform;
 }
 
 @media (max-width: 767px) {
-  .section.intro {
+  .section.section-slide-from-right-duration {
     flex-direction: column;
   }
 
@@ -55,3 +64,5 @@
     padding: 0;
   }
 }
+
+/* End Section - Image | Slide | From Right | Duration */
