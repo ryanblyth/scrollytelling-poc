@@ -19,7 +19,7 @@
   max-width: 1200px;
   height: 100vh;
   margin: 0 auto;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .section-start-onscreen {
   flex: 1 1 100%;
@@ -34,4 +34,24 @@
 .slide-in {
   position: relative; /* Set offest so image is offscreen */
   will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .section.intro {
+    flex-direction: column;
+  }
+
+  .section-start-onscreen,
+  .section-start-offscreen-right {
+    flex: none;
+    width: 100%;
+      padding: 2rem 0;
+  }
+
+  /* Initially hide the image container on mobile */
+  .section-start-offscreen-right {
+    opacity: 1;
+    overflow: hidden;
+    padding: 0;
+  }
 }
