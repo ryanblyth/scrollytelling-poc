@@ -16,25 +16,24 @@
   color: #ffffff;
 }
 
-.section {
+/* Begin Section - Image | Slide | From Right | Duration */
+.section-slide-from-right-duration {
   display: flex;
   width: 100%;
   gap: 0;
   padding: 4rem 2rem;
   max-width: 1200px;
-  height: 100vh;
+  /* min-height: 100vh; */ 
   margin: 0 auto;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
-/* BeginSection - Image | Slide | From Right | Duration */
-
-.section-start-onscreen {
+.section-slide-from-right-duration-start-onscreen {
   flex: 1 1 100%;
   transition: flex-basis 0.5s ease;
   padding: 2rem;
 }
-.section-start-offscreen-right {
+.section-slide-from-right-duration-start-offscreen-right {
   flex: 0 0 0%;
   opacity: 0;
 }
@@ -46,23 +45,56 @@
 }
 
 @media (max-width: 767px) {
-  .section.section-slide-from-right-duration {
+  .section-slide-from-right-duration {
     flex-direction: column;
   }
 
-  .section-start-onscreen,
-  .section-start-offscreen-right {
+  .section-slide-from-right-duration-start-onscreen,
+  .section-slide-from-right-duration-start-offscreen-right {
     flex: none;
     width: 100%;
-      padding: 2rem 0;
+    padding: 2rem 0;
   }
 
-  /* Initially hide the image container on mobile */
-  .section-start-offscreen-right {
+  /* Image slides down on mobile instead of from right */
+  .section-slide-from-right-duration-start-offscreen-right {
     opacity: 1;
     overflow: hidden;
     padding: 0;
   }
 }
-
 /* End Section - Image | Slide | From Right | Duration */
+
+
+/* Begin Section - Text Over Image | Slide | From Bottom | Scrub */
+.image-pin-section {
+  position: relative;
+  height: 100vh; /* Only the viewport height */
+  overflow: hidden;
+}
+
+.pinned-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.scroll-overlay {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 50vw;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: #efefef;
+}
+
+@media (max-width: 767px) {
+  .scroll-overlay {
+    width: 75vw;
+  }
+}
+/* End Section - Text Over Image | Slide | From Bottom | Scrub */
