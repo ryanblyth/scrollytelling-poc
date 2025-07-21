@@ -98,3 +98,40 @@
   }
 }
 /* End Section - Text Over Image | Slide | From Bottom | Scrub */
+
+
+/* Begin Section - Pinned Text Scroll | Image Transitions */
+
+.section-pinned-text-scroll {
+  display: flex;
+}
+
+.section-pinned-text-scroll-text {
+  flex: 0 0 50%;
+}
+
+.section-pinned-text-scroll-image {
+  flex: 0 0 50%;
+}
+
+.image-container {
+  position: relative;
+}
+
+.transition-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media (max-width: 767px) {
+  .section-pinned-text-scroll {
+    flex-direction: column-reverse;
+  }
+  .transition-image.image-1 {
+    position: sticky;
+  }
+}
+
+/* End Section - Pinned Text Scroll | Image Transitions */
+

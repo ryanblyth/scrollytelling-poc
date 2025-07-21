@@ -84,10 +84,86 @@ document.addEventListener("DOMContentLoaded", (event) =>{
         scrub: true,
         pin: true,
         anticipatePin: 1,
-        markers: true
+        // markers: true
       }
     }
   );
   /* Begin Section - Text Over Image | Slide | From Bottom | Scrub */
+
+     /* Begin Section - Pinned Text Scroll | Image Transitions */
+   ScrollTrigger.matchMedia({
+     // DESKTOP ONLY
+     "(min-width: 768px)": function () {
+       // Image transitions based on text scroll progress
+       const tl = gsap.timeline({
+         scrollTrigger: {
+           trigger: ".section-pinned-text-scroll-text",
+           start: "top 80%",
+           end: "bottom 20%",
+           scrub: true,
+           markers: true
+         }
+       });
+
+       // Show first image initially
+       gsap.set(".transition-image.image-1", { opacity: 1 });
+
+       // Transition to second image at 33%
+       tl.to(".transition-image.image-1", { opacity: 0, duration: 0.1 }, 0.33)
+         .to(".transition-image.image-2", { opacity: 1, duration: 0.1 }, 0.33);
+
+       // Transition to third image at 66%
+       tl.to(".transition-image.image-2", { opacity: 0, duration: 0.1 }, 0.66)
+         .to(".transition-image.image-3", { opacity: 1, duration: 0.1 }, 0.66);
+     },
+
+     // MOBILE ONLY
+     "(max-width: 767px)": function () {
+       // Image transitions based on text scroll progress
+       const tl = gsap.timeline({
+         scrollTrigger: {
+           trigger: ".section-pinned-text-scroll-text",
+           start: "top 80%",
+           end: "bottom 20%",
+           scrub: true,
+           markers: true
+         }
+       });
+     }
+   });
+  /* End Section - Pinned Text Scroll | Image Transitions */
+
+
+  /* Begin Section - Pinned Text Scroll | Image Transitions */
+  ScrollTrigger.matchMedia({
+    // DESKTOP ONLY
+    "(min-width: 768px)": function () {
+      // Pin the image when section reaches top of viewport
+      ScrollTrigger.create({
+        trigger: ".section-pinned-text-scroll",
+        start: "top top",
+        end: "bottom top",
+        pin: ".section-pinned-text-scroll-image",
+        markers: true
+      });
+    },
+
+    // MOBILE ONLY
+    "(max-width: 767px)": function () {
+      // Pin the image when section reaches top of viewport
+      ScrollTrigger.create({
+        trigger: ".section-pinned-text-scroll",
+        start: "top top",
+        end: "bottom top",
+        pin: ".section-pinned-text-scroll-image",
+        markers: true
+      });
+    }
+
+
+  });
+  /* End Section - Pinned Text Scroll | Image Transitions */
+
+
 
 })
