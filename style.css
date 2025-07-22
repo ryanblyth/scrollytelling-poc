@@ -145,6 +145,13 @@
   .transition-image.image-1 {
     position: sticky;
   }
+  .section-pinned-text-scroll-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #ffffff 0%, #ffffff 95%, transparent 100%);
+    height: 45vh;
+  }
 }
 
 /* End Section - Pinned Text Scroll | Image Transitions */
