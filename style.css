@@ -104,14 +104,23 @@
 
 .section-pinned-text-scroll {
   display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .section-pinned-text-scroll-text {
   flex: 0 0 50%;
+  padding: 2rem;
 }
 
 .section-pinned-text-scroll-image {
   flex: 0 0 50%;
+  padding: 2rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 .image-container {
@@ -122,11 +131,16 @@
   position: absolute;
   top: 0;
   left: 0;
+  opacity: 0;
+}
+
+.transition-image.image-1 {
+  opacity: 1;
 }
 
 @media (max-width: 767px) {
   .section-pinned-text-scroll {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   .transition-image.image-1 {
     position: sticky;
