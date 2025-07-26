@@ -156,3 +156,48 @@
 
 /* End Section - Pinned Text Scroll | Image Transitions */
 
+/* Begin Section - Three Text Blocks | Image Transitions */
+.image-pin-section-three {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.pinned-image-three {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0;
+}
+
+.pinned-image-three.image-three-1 {
+  opacity: 1; /* Start with first image visible */
+}
+
+.scroll-overlay-three {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 50vw;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: #efefef;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 50vh; /* Space between text blocks */
+}
+
+.scroll-overlay-three:last-child {
+  margin-bottom: 100vh; /* Extra space after last text block */
+}
+
+@media (max-width: 767px) {
+  .scroll-overlay-three {
+    width: 75vw;
+  }
+}
+/* End Section - Three Text Blocks | Image Transitions */
+
