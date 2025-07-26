@@ -86,7 +86,8 @@ document.addEventListener("DOMContentLoaded", (event) =>{
         end: "+=100%",
         scrub: true,
         pin: true,
-        anticipatePin: 1,
+        fastScrollEnd: true,
+        invalidateOnRefresh: true,
         // markers: true
       }
     }
@@ -123,34 +124,54 @@ document.addEventListener("DOMContentLoaded", (event) =>{
 
   
   /* Begin Section - Three Text Blocks | Image Transitions */
-  // Create a master timeline for consistent timing
-  const masterTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".image-pin-section-three",
-      start: "top top",
-      end: "+=500%", // Extended to give third text block time to scroll up fully
-      scrub: true,
-      pin: true,
-      anticipatePin: 1,
-      markers: true
-    }
-  });
-
-  // Animate text blocks scrolling up
-  masterTimeline.fromTo(
+  // Pin the section and animate text blocks scrolling up
+  gsap.fromTo(
     ".scroll-overlay-three",
     { y: "150vh" },
-    { y: "-200vh", duration: 1 } // Extended range so third text block scrolls up completely
+    {
+      y: "-200vh",
+      scrollTrigger: {
+        trigger: ".section-three-text-blocks",
+        start: "top top",
+        end: "+=500%",
+        scrub: true,
+        pin: true,
+        pinSpacing: true,
+        fastScrollEnd: true,
+        invalidateOnRefresh: true,
+        markers: true
+      }
+    }
   );
 
-  // Image transitions at specific progress points on the master timeline
-  // Transition 1: At 25% of section scroll progress. 
-  masterTimeline.to(".pinned-image-three.image-three-1", { opacity: 0, duration: 0.1 }, 0.25) // use these settings in conjunction based on text content length
-                .to(".pinned-image-three.image-three-2", { opacity: 1, duration: 0.1 }, 0.25);
-
-  // Transition 2: At 60% of section scroll progress.
-  masterTimeline.to(".pinned-image-three.image-three-2", { opacity: 0, duration: 0.1 }, 0.60) // use these settings in conjunction based on text content length
-                .to(".pinned-image-three.image-three-3", { opacity: 1, duration: 0.1 }, 0.60);
+  // Image transitions using separate ScrollTriggers
+  ScrollTrigger.create({
+    trigger: ".section-three-text-blocks",
+    start: "top top",
+    end: "+=500%",
+    scrub: true,
+    onUpdate: (self) => {
+      const progress = self.progress;
+      
+      // Transition 1: At 25% progress
+      if (progress >= 0.25) {
+        gsap.set(".pinned-image-three.image-three-1", { opacity: 0 });
+        gsap.set(".pinned-image-three.image-three-2", { opacity: 1 });
+      } else {
+        gsap.set(".pinned-image-three.image-three-1", { opacity: 1 });
+        gsap.set(".pinned-image-three.image-three-2", { opacity: 0 });
+      }
+      
+      // Transition 2: At 60% progress
+      if (progress >= 0.60) {
+        gsap.set(".pinned-image-three.image-three-2", { opacity: 0 });
+        gsap.set(".pinned-image-three.image-three-3", { opacity: 1 });
+      } else if (progress >= 0.25) {
+        gsap.set(".pinned-image-three.image-three-2", { opacity: 1 });
+        gsap.set(".pinned-image-three.image-three-3", { opacity: 0 });
+      }
+    }
+  });
   /* End Section - Three Text Blocks | Image Transitions */
 
 })
