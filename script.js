@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", (event) =>{
         ease: "power2.out",
         onComplete: () => ScrollTrigger.refresh(),
         scrollTrigger: {
-          trigger: ".section.section-slide-from-right-duration",
+          trigger: ".section-slide-from-right-duration",
           start: "top 75%",
           toggleActions: "play reverse play reverse",
           // markers: true
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", (event) =>{
         duration: 2,
         ease: "power2.out",
         scrollTrigger: {
-          trigger: ".section.section-slide-from-right-duration",
+          trigger: ".section-slide-from-right-duration",
           start: "top 75%",
           toggleActions: "play reverse play reverse",
           // markers: true
