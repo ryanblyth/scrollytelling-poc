@@ -119,54 +119,38 @@ document.addEventListener("DOMContentLoaded", (event) =>{
     .to(".transition-image.image-3", { opacity: 1, duration: 0.1 }, 0.50);
   /* End Section - Pinned Text Scroll | Image Transitions */  
 
+
+
+  
   /* Begin Section - Three Text Blocks | Image Transitions */
-  // Pin the section and animate text blocks scrolling up
-  gsap.fromTo(
+  // Create a master timeline for consistent timing
+  const masterTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".image-pin-section-three",
+      start: "top top",
+      end: "+=500%", // Extended to give third text block time to scroll up fully
+      scrub: true,
+      pin: true,
+      anticipatePin: 1,
+      markers: true
+    }
+  });
+
+  // Animate text blocks scrolling up
+  masterTimeline.fromTo(
     ".scroll-overlay-three",
     { y: "150vh" },
-    {
-      y: "-100vh",
-      scrollTrigger: {
-        trigger: ".image-pin-section-three",
-        start: "top top",
-        end: "+=400%",
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-        markers: true
-      }
-    }
+    { y: "-200vh", duration: 1 } // Extended range so third text block scrolls up completely
   );
 
-  // Image transition 1: When text-block-1 exits top, change to image-three-2
-  ScrollTrigger.create({
-    trigger: ".text-block-1",
-    start: "bottom top",
-    markers: true,
-    onEnter: () => {
-      gsap.to(".pinned-image-three.image-three-1", { opacity: 0, duration: 0.5 });
-      gsap.to(".pinned-image-three.image-three-2", { opacity: 1, duration: 0.5 });
-    },
-    onLeaveBack: () => {
-      gsap.to(".pinned-image-three.image-three-1", { opacity: 1, duration: 0.5 });
-      gsap.to(".pinned-image-three.image-three-2", { opacity: 0, duration: 0.5 });
-    }
-  });
+  // Image transitions at specific progress points on the master timeline
+  // Transition 1: At 25% of section scroll progress. 
+  masterTimeline.to(".pinned-image-three.image-three-1", { opacity: 0, duration: 0.1 }, 0.25) // use these settings in conjunction based on text content length
+                .to(".pinned-image-three.image-three-2", { opacity: 1, duration: 0.1 }, 0.25);
 
-  // Image transition 2: When text-block-2 exits top, change to image-three-3
-  ScrollTrigger.create({
-    trigger: ".text-block-2",
-    start: "bottom top",
-    markers: true,
-    onEnter: () => {
-      gsap.to(".pinned-image-three.image-three-2", { opacity: 0, duration: 0.5 });
-      gsap.to(".pinned-image-three.image-three-3", { opacity: 1, duration: 0.5 });
-    },
-    onLeaveBack: () => {
-      gsap.to(".pinned-image-three.image-three-2", { opacity: 1, duration: 0.5 });
-      gsap.to(".pinned-image-three.image-three-3", { opacity: 0, duration: 0.5 });
-    }
-  });
+  // Transition 2: At 60% of section scroll progress.
+  masterTimeline.to(".pinned-image-three.image-three-2", { opacity: 0, duration: 0.1 }, 0.60) // use these settings in conjunction based on text content length
+                .to(".pinned-image-three.image-three-3", { opacity: 1, duration: 0.1 }, 0.60);
   /* End Section - Three Text Blocks | Image Transitions */
 
 })
