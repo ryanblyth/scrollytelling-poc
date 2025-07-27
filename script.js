@@ -125,53 +125,53 @@ document.addEventListener("DOMContentLoaded", (event) =>{
   
   /* Begin Section - Three Text Blocks | Image Transitions */
   // Pin the section and animate text blocks scrolling up
-  gsap.fromTo(
-    ".scroll-overlay-three",
-    { y: "150vh" },
-    {
-      y: "-200vh",
-      scrollTrigger: {
-        trigger: ".section-three-text-blocks",
-        start: "top top",
-        end: "+=500%",
-        scrub: true,
-        pin: true,
-        pinSpacing: true,
-        fastScrollEnd: true,
-        invalidateOnRefresh: true,
-        markers: true
-      }
-    }
-  );
+  // gsap.fromTo(
+  //   ".scroll-overlay-three",
+  //   { y: "150vh" },
+  //   {
+  //     y: "-200vh",
+  //     scrollTrigger: {
+  //       trigger: ".section-three-text-blocks",
+  //       start: "top top",
+  //       end: "+=500%",
+  //       scrub: true,
+  //       pin: true,
+  //       pinSpacing: true,
+  //       fastScrollEnd: true,
+  //       invalidateOnRefresh: true,
+  //       markers: true
+  //     }
+  //   }
+  // );
 
-  // Image transitions using separate ScrollTriggers
-  ScrollTrigger.create({
-    trigger: ".section-three-text-blocks",
-    start: "top top",
-    end: "+=500%",
-    scrub: true,
-    onUpdate: (self) => {
-      const progress = self.progress;
+  // // Image transitions using separate ScrollTriggers
+  // ScrollTrigger.create({
+  //   trigger: ".section-three-text-blocks",
+  //   start: "top top",
+  //   end: "+=500%",
+  //   scrub: true,
+  //   onUpdate: (self) => {
+  //     const progress = self.progress;
       
-      // Transition 1: At 25% progress
-      if (progress >= 0.25) {
-        gsap.set(".pinned-image-three.image-three-1", { opacity: 0 });
-        gsap.set(".pinned-image-three.image-three-2", { opacity: 1 });
-      } else {
-        gsap.set(".pinned-image-three.image-three-1", { opacity: 1 });
-        gsap.set(".pinned-image-three.image-three-2", { opacity: 0 });
-      }
+  //     // Transition 1: At 25% progress
+  //     if (progress >= 0.25) {
+  //       gsap.set(".pinned-image-three.image-three-1", { opacity: 0 });
+  //       gsap.set(".pinned-image-three.image-three-2", { opacity: 1 });
+  //     } else {
+  //       gsap.set(".pinned-image-three.image-three-1", { opacity: 1 });
+  //       gsap.set(".pinned-image-three.image-three-2", { opacity: 0 });
+  //     }
       
-      // Transition 2: At 60% progress
-      if (progress >= 0.60) {
-        gsap.set(".pinned-image-three.image-three-2", { opacity: 0 });
-        gsap.set(".pinned-image-three.image-three-3", { opacity: 1 });
-      } else if (progress >= 0.25) {
-        gsap.set(".pinned-image-three.image-three-2", { opacity: 1 });
-        gsap.set(".pinned-image-three.image-three-3", { opacity: 0 });
-      }
-    }
-  });
+  //     // Transition 2: At 60% progress
+  //     if (progress >= 0.60) {
+  //       gsap.set(".pinned-image-three.image-three-2", { opacity: 0 });
+  //       gsap.set(".pinned-image-three.image-three-3", { opacity: 1 });
+  //     } else if (progress >= 0.25) {
+  //       gsap.set(".pinned-image-three.image-three-2", { opacity: 1 });
+  //       gsap.set(".pinned-image-three.image-three-3", { opacity: 0 });
+  //     }
+  //   }
+  // });
   /* End Section - Three Text Blocks | Image Transitions */
 
 })
