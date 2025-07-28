@@ -1,6 +1,62 @@
 // Load DOM
 document.addEventListener("DOMContentLoaded", (event) =>{
 
+
+
+
+
+
+
+
+
+// ------------------------------------
+// Lenis Smooth Scroll Setup
+// ------------------------------------
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smooth: true,
+  gestureDirection: 'vertical',
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Register ScrollTrigger and sync with Lenis
+gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.scrollerProxy(document.body, {
+  scrollTop(value) {
+    return arguments.length ? lenis.scrollTo(value, { immediate: true }) : lenis.scroll;
+  },
+  scrollLeft(value) {
+    return arguments.length ? lenis.scrollTo(value, { immediate: true, axis: 'x' }) : (lenis.scrollX || 0);
+  },
+  getBoundingClientRect() {
+    return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+  },
+  pinType: document.body.style.transform ? "transform" : "fixed"
+});
+
+// Tell ScrollTrigger to update when Lenis scrolls
+lenis.on("scroll", ScrollTrigger.update);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Prevent ScrollTrigger from refreshing on mobile address bar show/hide which causes bounce glitches
   ScrollTrigger.config({ ignoreMobileResize: true });
 
