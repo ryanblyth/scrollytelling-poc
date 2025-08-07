@@ -185,7 +185,6 @@ lenis.on("scroll", ScrollTrigger.update);
         end: "+=100%",
         scrub: true,
         pin: true,
-        fastScrollEnd: true,
         invalidateOnRefresh: true,
         // markers: true
       }
@@ -262,8 +261,7 @@ lenis.on("scroll", ScrollTrigger.update);
           scrub: true,
           pin: true,
           pinSpacing: true,
-          invalidateOnRefresh: true,
-          fastScrollEnd: true
+          invalidateOnRefresh: true
         }
       });
 
