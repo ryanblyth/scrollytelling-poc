@@ -318,4 +318,53 @@ lenis.on("scroll", ScrollTrigger.update);
   }
   // End Section - Three Text Blocks | Image Transitions | Precise 150px Triggers
 
+
+ 
+  // Begin Section - Zoom Image | Scrub */
+
+  // Make sure image fills viewport on load and resize
+  function sizeImage() {
+    const img = document.querySelector(".zoom-image-wrapper img");
+    const section = document.querySelector(".zoom-section");
+
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    const sectionRatio = section.offsetWidth / section.offsetHeight;
+
+    if (imgRatio > sectionRatio) {
+      // Landscape image — match height
+      img.style.height = "100%";
+      img.style.width = "auto";
+    } else {
+      // Portrait image — match width
+      img.style.width = "100%";
+      img.style.height = "auto";
+    }
+  }
+
+  window.addEventListener("load", sizeImage);
+  window.addEventListener("resize", sizeImage);
+
+  // Zoom + Pan animation
+  gsap.fromTo(".zoom-image-wrapper img",
+    {
+      scale: 3,        // start zoomed in
+      xPercent: -80,   // start horizontal position
+      yPercent: -110   // start vertical position
+    },
+    {
+      scale: 1,        // end zoomed out
+      xPercent: -50,   // end horizontal position
+      yPercent: 0,     // end vertical position
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".zoom-section",
+        start: "top top",
+        end: "+=300%", // controls animation speed while scrubbing
+        scrub: true,
+        pin: true
+      }
+    }
+  );
+  // End Section - Zoom Image | Scrub
+
 })
