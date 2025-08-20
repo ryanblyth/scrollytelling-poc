@@ -354,7 +354,7 @@ lenis.on("scroll", ScrollTrigger.update);
     {
       scale: 1,        // end zoomed out
       xPercent: -50,   // end horizontal position
-      yPercent: 0,     // end vertical position
+      yPercent: -0,     // end vertical position
       ease: "none",
       scrollTrigger: {
         trigger: ".zoom-section",
