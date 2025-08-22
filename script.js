@@ -396,12 +396,14 @@ lenis.on("scroll", ScrollTrigger.update);
       
       // Set the section height to accommodate the required scroll distance
       // The section needs to be taller than 100vh to allow for the horizontal scroll
-      section.style.height = (viewportHeight + requiredVerticalScroll) + 'px';
+      // Multiply by 2 to make the scroll slower and more comfortable
+      const scrollMultiplier = 2;
+      section.style.height = (viewportHeight + (requiredVerticalScroll * scrollMultiplier)) + 'px';
 
       const tlH = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          end: '+=' + requiredVerticalScroll,
+          end: '+=' + (requiredVerticalScroll * scrollMultiplier), // Use the same multiplier for consistency
           scrub: true,
           pin: true,
           pinSpacing: false, // Prevent excessive spacing after section
