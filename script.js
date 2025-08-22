@@ -419,7 +419,6 @@ lenis.on("scroll", ScrollTrigger.update);
           if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
             const currentHeight = section.offsetHeight;
             if (currentHeight > targetHeight + 100) { // If height increases significantly
-              console.log('Height change detected, resetting to:', targetHeight);
               section.style.height = targetHeight + 'px';
               section.style.minHeight = targetHeight + 'px';
               section.style.maxHeight = targetHeight + 'px';
@@ -433,22 +432,12 @@ lenis.on("scroll", ScrollTrigger.update);
       // Store observer globally for cleanup
       window.horizontalHeightObserver = heightObserver;
 
-      // Debug: Log the calculated values
-      console.log('Horizontal RTL Debug:', {
-        viewportWidth,
-        viewportHeight,
-        totalContentWidth,
-        maxTranslateX,
-        requiredVerticalScroll,
-        sectionHeight: targetHeight
-      });
-
       const tlH = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=' + (requiredVerticalScroll), // Slightly reduce to prevent extra scroll space
+          end: '+=' + requiredVerticalScroll,
           scrub: true,
           pin: true,
           pinSpacing: false, // Prevent excessive spacing after section
@@ -456,15 +445,6 @@ lenis.on("scroll", ScrollTrigger.update);
           invalidateOnRefresh: true,
           fastScrollEnd: true,
           onUpdate: (self) => {
-            // Debug: Log scroll progress and section height
-            if (self.progress > 0.95) {
-              console.log('Near completion:', {
-                progress: self.progress,
-                currentSectionHeight: section.offsetHeight,
-                expectedHeight: targetHeight
-              });
-            }
-            
             // Force height reset as soon as we're very close to completion
             if (self.progress > 0.99) {
               section.style.height = viewportHeight + 'px';
@@ -473,9 +453,6 @@ lenis.on("scroll", ScrollTrigger.update);
             }
           },
           onComplete: () => {
-            // Debug: Log when animation completes
-            console.log('Horizontal scroll completed, section height:', section.offsetHeight);
-            
             // Immediately reset section height to prevent infinite scroll
             section.style.height = viewportHeight + 'px';
             section.style.minHeight = viewportHeight + 'px';
