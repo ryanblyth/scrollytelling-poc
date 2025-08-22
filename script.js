@@ -256,7 +256,6 @@ lenis.on("scroll", ScrollTrigger.update);
       tlTT = gsap.timeline({
         scrollTrigger: {
           trigger: sectionTT,
-          start: 'top top',
           end: '+=' + scrollDistance,
           scrub: true,
           pin: true,
@@ -379,14 +378,6 @@ lenis.on("scroll", ScrollTrigger.update);
       ScrollTrigger.getAll().forEach(st => {
         if (st.trigger === section) st.kill(true);
       });
-      
-      // Disconnect any existing height observer
-      if (window.horizontalHeightObserver) {
-        window.horizontalHeightObserver.disconnect();
-      }
-
-      // Force layout to get accurate measurements
-      container.style.transform = 'translate3d(0,0,0)';
 
       // Calculate exact distances in pixels
       const viewportWidth = window.innerWidth;
@@ -406,57 +397,19 @@ lenis.on("scroll", ScrollTrigger.update);
       // Set the section height to accommodate the required scroll distance
       // The section needs to be taller than 100vh to allow for the horizontal scroll
       section.style.height = (viewportHeight + requiredVerticalScroll) + 'px';
-      
-      // Force the height to stay exactly what we calculated
-      // This prevents ScrollTrigger or other elements from adding extra height
-      const targetHeight = viewportHeight + requiredVerticalScroll;
-      section.style.minHeight = targetHeight + 'px';
-      section.style.maxHeight = targetHeight + 'px';
-      
-      // Add MutationObserver to watch for height changes and reset them
-      const heightObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-            const currentHeight = section.offsetHeight;
-            if (currentHeight > targetHeight + 100) { // If height increases significantly
-              section.style.height = targetHeight + 'px';
-              section.style.minHeight = targetHeight + 'px';
-              section.style.maxHeight = targetHeight + 'px';
-            }
-          }
-        });
-      });
-      
-      heightObserver.observe(section, { attributes: true, attributeFilter: ['style'] });
-      
-      // Store observer globally for cleanup
-      window.horizontalHeightObserver = heightObserver;
 
       const tlH = gsap.timeline({
-        defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: section,
-          start: 'top top',
           end: '+=' + requiredVerticalScroll,
           scrub: true,
           pin: true,
           pinSpacing: false, // Prevent excessive spacing after section
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          fastScrollEnd: true,
           onUpdate: (self) => {
             // Force height reset as soon as we're very close to completion
             if (self.progress > 0.99) {
               section.style.height = viewportHeight + 'px';
-              section.style.minHeight = viewportHeight + 'px';
-              section.style.maxHeight = viewportHeight + 'px';
             }
-          },
-          onComplete: () => {
-            // Immediately reset section height to prevent infinite scroll
-            section.style.height = viewportHeight + 'px';
-            section.style.minHeight = viewportHeight + 'px';
-            section.style.maxHeight = viewportHeight + 'px';
           }
         }
       });
