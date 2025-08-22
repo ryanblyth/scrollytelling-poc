@@ -287,3 +287,71 @@
   justify-content: center;
 }
 /* End Section - Zoom Image | Scrub */
+
+
+
+/* Begin Section - Horizontal RTL */
+.horizontal-rtl-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #222;
+  overflow: hidden; /* Hide overflow during animation */
+}
+
+.horizontal-rtl-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto; /* auto-fit based on items instead of fixed 500vw */
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  gap: 0; /* no gaps between items */
+  will-change: transform; /* optimize GPU compositing during transform */
+  background: #444;
+}
+
+.horizontal-rtl-section-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box; /* include padding in 100vw width */
+  margin: 0; /* avoid accidental extra width from margins */
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+  padding: 2rem;
+}
+
+.horizontal-rtl-section-item h2 {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+.horizontal-rtl-section-item p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 80%;
+}
+
+@media (max-width: 767px) {
+  .horizontal-rtl-section-item {
+    height: 100vh;
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+  
+  .horizontal-rtl-section-item h2 {
+    font-size: 1.8rem;
+  }
+  
+  .horizontal-rtl-section-item p {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+}
+/* End Section - Horizontal RTL */

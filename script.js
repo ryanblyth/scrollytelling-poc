@@ -367,4 +367,132 @@ lenis.on("scroll", ScrollTrigger.update);
   );
   // End Section - Zoom Image | Scrub
 
+  // ---------------------------------------------------------------------------
+  // Begin Section - Horizontal RTL | Continuous Scrolling
+  // ---------------------------------------------------------------------------
+  if (document.querySelector('.horizontal-rtl-section')) {
+    const section = document.querySelector('.horizontal-rtl-section');
+    const container = section.querySelector('.horizontal-rtl-container');
+
+    function buildHorizontal() {
+      // Kill any existing ScrollTriggers on this section
+      ScrollTrigger.getAll().forEach(st => {
+        if (st.trigger === section) st.kill(true);
+      });
+      
+      // Disconnect any existing height observer
+      if (window.horizontalHeightObserver) {
+        window.horizontalHeightObserver.disconnect();
+      }
+
+      // Force layout to get accurate measurements
+      container.style.transform = 'translate3d(0,0,0)';
+
+      // Calculate exact distances in pixels
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      
+      // Total content width (5 items × 100vw = 5 × viewportWidth)
+      const totalContentWidth = container.scrollWidth;
+      
+      // Maximum horizontal distance to translate so the last item fully passes the viewport
+      const maxTranslateX = Math.max(0, totalContentWidth - viewportWidth);
+      
+      // Convert horizontal pixels to equivalent vertical scroll distance
+      // We need to add enough vertical scroll height to account for the horizontal movement
+      // This ensures the section has enough "height" to complete the horizontal scroll
+      const requiredVerticalScroll = maxTranslateX;
+      
+      // Set the section height to accommodate the required scroll distance
+      // The section needs to be taller than 100vh to allow for the horizontal scroll
+      section.style.height = (viewportHeight + requiredVerticalScroll) + 'px';
+      
+      // Force the height to stay exactly what we calculated
+      // This prevents ScrollTrigger or other elements from adding extra height
+      const targetHeight = viewportHeight + requiredVerticalScroll;
+      section.style.minHeight = targetHeight + 'px';
+      section.style.maxHeight = targetHeight + 'px';
+      
+      // Add MutationObserver to watch for height changes and reset them
+      const heightObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+            const currentHeight = section.offsetHeight;
+            if (currentHeight > targetHeight + 100) { // If height increases significantly
+              console.log('Height change detected, resetting to:', targetHeight);
+              section.style.height = targetHeight + 'px';
+              section.style.minHeight = targetHeight + 'px';
+              section.style.maxHeight = targetHeight + 'px';
+            }
+          }
+        });
+      });
+      
+      heightObserver.observe(section, { attributes: true, attributeFilter: ['style'] });
+      
+      // Store observer globally for cleanup
+      window.horizontalHeightObserver = heightObserver;
+
+      // Debug: Log the calculated values
+      console.log('Horizontal RTL Debug:', {
+        viewportWidth,
+        viewportHeight,
+        totalContentWidth,
+        maxTranslateX,
+        requiredVerticalScroll,
+        sectionHeight: targetHeight
+      });
+
+      const tlH = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: '+=' + (requiredVerticalScroll), // Slightly reduce to prevent extra scroll space
+          scrub: true,
+          pin: true,
+          pinSpacing: false, // Prevent excessive spacing after section
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          fastScrollEnd: true,
+          onUpdate: (self) => {
+            // Debug: Log scroll progress and section height
+            if (self.progress > 0.95) {
+              console.log('Near completion:', {
+                progress: self.progress,
+                currentSectionHeight: section.offsetHeight,
+                expectedHeight: targetHeight
+              });
+            }
+            
+            // Force height reset as soon as we're very close to completion
+            if (self.progress > 0.99) {
+              section.style.height = viewportHeight + 'px';
+              section.style.minHeight = viewportHeight + 'px';
+              section.style.maxHeight = viewportHeight + 'px';
+            }
+          },
+          onComplete: () => {
+            // Debug: Log when animation completes
+            console.log('Horizontal scroll completed, section height:', section.offsetHeight);
+            
+            // Immediately reset section height to prevent infinite scroll
+            section.style.height = viewportHeight + 'px';
+            section.style.minHeight = viewportHeight + 'px';
+            section.style.maxHeight = viewportHeight + 'px';
+          }
+        }
+      });
+
+      tlH.fromTo(container, { x: 0 }, { x: -maxTranslateX });
+    }
+
+    // Initial build
+    buildHorizontal();
+
+    // Rebuild on width/orientation changes
+    RebuildRegistry.register(buildHorizontal);
+  }
+  // End Section - Horizontal RTL | Continuous Scrolling
+
 })
