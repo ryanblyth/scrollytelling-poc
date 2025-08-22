@@ -20,56 +20,6 @@ body {
   color: #ffffff;
 }
 
-/* Begin Section - Image | Slide | From Right | Duration */
-.section-slide-from-right-duration {
-  display: flex;
-  width: 100%;
-  gap: 0;
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  /* min-height: 100vh; */ 
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.section-slide-from-right-duration-start-onscreen {
-  flex: 1 1 100%;
-  transition: flex-basis 0.5s ease;
-  padding: 2rem;
-}
-.section-slide-from-right-duration-start-offscreen-right {
-  flex: 0 0 0%;
-  opacity: 0;
-}
-
-.animate-slide-from-right-duration {
-  position: relative; /* Set offest so image is offscreen */
-  margin: 0 auto;
-  will-change: transform;
-}
-
-@media (max-width: 767px) {
-  .section-slide-from-right-duration {
-    flex-direction: column;
-  }
-
-  .section-slide-from-right-duration-start-onscreen,
-  .section-slide-from-right-duration-start-offscreen-right {
-    flex: none;
-    width: 100%;
-    padding: 2rem 0;
-  }
-
-  /* Image slides down on mobile instead of from right */
-  .section-slide-from-right-duration-start-offscreen-right {
-    opacity: 1;
-    overflow: hidden;
-    padding: 0;
-  }
-}
-/* End Section - Image | Slide | From Right | Duration */
-
-
 /* Begin Section - Text Over Image | Slide | From Bottom | Scrub */
 .image-pin-section {
   position: relative;
