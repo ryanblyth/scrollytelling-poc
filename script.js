@@ -118,8 +118,7 @@ lenis.on("scroll", ScrollTrigger.update);
         end: "+=100%",
         scrub: true,
         pin: true,
-        invalidateOnRefresh: true,
-        // markers: true
+        invalidateOnRefresh: true
       }
     }
   );
@@ -129,13 +128,13 @@ lenis.on("scroll", ScrollTrigger.update);
   // ------------------------------------
   // Begin Section - Pinned Text Scroll | Image Transitions
   // ------------------------------------
+  // Timeline for image transitions based on text content length
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".section-pinned-text-scroll-text",
       start: "top 80%", // use these settings in conjunction based on text content length
       end: "60% 20%", // use these settings in conjunction based on text content length  
       scrub: true
-      // markers: true
     }
   });
 
@@ -300,7 +299,7 @@ lenis.on("scroll", ScrollTrigger.update);
   );
   // End Section - Zoom Image | Scrub */
 
-  
+
   // ------------------------------------
   // Begin Section - Horizontal RTL | Continuous Scrolling
   // ------------------------------------
