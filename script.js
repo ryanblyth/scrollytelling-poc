@@ -252,7 +252,7 @@ lenis.on("scroll", ScrollTrigger.update);
 
   // ------------------------------------
   // Begin Section - Zoom Image | Scrub
-  // ------------------------------------ */
+  // ------------------------------------
 
   // Make sure image fills viewport on load and resize
   function sizeImage() {
@@ -286,7 +286,7 @@ lenis.on("scroll", ScrollTrigger.update);
     {
       scale: 1,        // end zoomed out
       xPercent: -50,   // end horizontal position
-      yPercent: -0,     // end vertical position
+      yPercent: -0,    // end vertical position
       ease: "none",
       scrollTrigger: {
         trigger: ".zoom-section",
@@ -297,7 +297,7 @@ lenis.on("scroll", ScrollTrigger.update);
       }
     }
   );
-  // End Section - Zoom Image | Scrub */
+  // End Section - Zoom Image | Scrub
 
 
   // ------------------------------------
