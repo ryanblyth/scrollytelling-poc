@@ -341,7 +341,7 @@ lenis.on("scroll", ScrollTrigger.update);
           pin: true,
           pinSpacing: false, // Prevent excessive spacing after section
           onUpdate: (self) => {
-            // Force height reset as soon as we're very close to completion
+            // Reset height when animation is nearly complete
             if (self.progress > 0.99) {
               section.style.height = viewportHeight + 'px';
             }
@@ -358,6 +358,6 @@ lenis.on("scroll", ScrollTrigger.update);
     // Rebuild on width/orientation changes
     RebuildRegistry.register(buildHorizontal);
   }
-  // End Section - Horizontal RTL | Continuous Scrolling */
+  // End Section - Horizontal RTL | Continuous Scrolling
 
 })
