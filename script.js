@@ -159,11 +159,10 @@ lenis.on("scroll", ScrollTrigger.update);
     const textBlocksTT = sectionTT.querySelectorAll('.scroll-overlay-three');
     const imagesTT = sectionTT.querySelectorAll('.pinned-image-three');
 
-    // Pin the section and animate text blocks scrolling up
-    // Create a function to (re)build the scrolling timeline based on actual text height
+    // Timeline for pinning section and scrolling text blocks
     let tlTT;
     function buildTimeline() {
-      // If a previous timeline exists, completely kill its ScrollTrigger and unwrap pin-spacers
+      // Clean up previous timeline and pin-spacers
       if (tlTT) {
         if (tlTT.scrollTrigger) tlTT.scrollTrigger.kill(true);
         tlTT.kill();
@@ -177,7 +176,7 @@ lenis.on("scroll", ScrollTrigger.update);
         }
       }
 
-      // Total height of all text blocks combined
+      // Calculate total scroll distance needed
       const blocksArray = Array.from(textBlocksTT);
       const totalTextHeight = blocksArray.reduce((sum, el) => sum + el.offsetHeight + parseFloat(getComputedStyle(el).marginBottom), 0);
 
@@ -196,7 +195,7 @@ lenis.on("scroll", ScrollTrigger.update);
         }
       });
 
-      // Start each block just below the viewport and move everything up through full text height
+      // Animate text blocks from below viewport to above
       tlTT.fromTo(
         textBlocksTT,
         { y: window.innerHeight },
@@ -209,7 +208,7 @@ lenis.on("scroll", ScrollTrigger.update);
     // Register with global registry so it rebuilds on width/orientation changes
     RebuildRegistry.register(buildTimeline);
 
-    // Ensure starting state for images
+    // Set initial image state
     gsap.set(imagesTT, { opacity: 0 });
     if (imagesTT[0]) gsap.set(imagesTT[0], { opacity: 1 });
 
@@ -228,6 +227,7 @@ lenis.on("scroll", ScrollTrigger.update);
       currentImageTT = index;
     }
 
+    // Image transition triggers based on text block positions
     ScrollTrigger.create({
       trigger: sectionTT,
       start: 'top top',
