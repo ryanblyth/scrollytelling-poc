@@ -1,13 +1,29 @@
 // Load DOM
 document.addEventListener("DOMContentLoaded", (event) =>{
 
+// ------------------------------------
+// Prevent Scroll Position Restoration on Refresh
+// This is a minimal, safe approach that doesn't interfere with normal page loading
+// ------------------------------------
 
+// Check if this is a page refresh
+const isPageRefresh = window.performance && 
+  (window.performance.navigation.type === 1 || // refresh
+   window.performance.getEntriesByType('navigation')[0]?.type === 'reload');
 
-
-
-
-
-
+if (isPageRefresh) {
+  // Simply prevent the browser from restoring scroll position
+  // This is much safer than trying to manipulate the DOM
+  history.scrollRestoration = 'manual';
+  
+  // Force scroll to top after a brief delay to ensure it takes effect
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    }
+  }, 100);
+}
 
 // ------------------------------------
 // Lenis Smooth Scroll Setup
@@ -18,6 +34,9 @@ const lenis = new Lenis({
   smooth: true,
   gestureDirection: 'vertical',
 });
+
+// Store lenis globally for scroll reset access
+window.lenis = lenis;
 
 function raf(time) {
   lenis.raf(time);
