@@ -62,20 +62,7 @@ ScrollTrigger.scrollerProxy(document.body, {
 // Tell ScrollTrigger to update when Lenis scrolls
 lenis.on("scroll", ScrollTrigger.update);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
   // Prevent ScrollTrigger from refreshing on mobile address bar show/hide which causes bounce glitches
   ScrollTrigger.config({ ignoreMobileResize: true });
 
@@ -117,8 +104,9 @@ lenis.on("scroll", ScrollTrigger.update);
   })();
 
 
-  
-  /* Begin Section - Text Over Image | Slide | From Bottom | Scrub */
+  // ------------------------------------
+  // Begin Section - Text Over Image | Slide | From Bottom | Scrub
+  // ------------------------------------
   gsap.fromTo(
     ".scroll-overlay",
     { y: "150vh" },             // from
@@ -135,12 +123,12 @@ lenis.on("scroll", ScrollTrigger.update);
       }
     }
   );
-  /* End Section - Text Over Image | Slide | From Bottom | Scrub */
+  // End Section - Text Over Image | Slide | From Bottom | Scrub
 
 
-
-
-  /* Begin Section - Pinned Text Scroll | Image Transitions */
+  // ------------------------------------
+  // Begin Section - Pinned Text Scroll | Image Transitions
+  // ------------------------------------
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".section-pinned-text-scroll-text",
@@ -161,12 +149,12 @@ lenis.on("scroll", ScrollTrigger.update);
   // Transition to third image at 66%
   tl.to(".transition-image.image-2", { opacity: 0, duration: 0.1 }, 0.50) // use these settings in conjunction based on text content length
     .to(".transition-image.image-3", { opacity: 1, duration: 0.1 }, 0.50);
-  /* End Section - Pinned Text Scroll | Image Transitions */
+  // End Section - Pinned Text Scroll | Image Transitions
 
 
-
-  
-  /* Begin Section - Three Text Blocks | Image Transitions */
+  // ------------------------------------
+  // Begin Section - Three Text Blocks | Image Transitions
+  // ------------------------------------
   if (document.querySelector('.section-three-text-blocks')) {
     const sectionTT = document.querySelector('.section-three-text-blocks');
     const textBlocksTT = sectionTT.querySelectorAll('.scroll-overlay-three');
@@ -260,11 +248,12 @@ lenis.on("scroll", ScrollTrigger.update);
       }
     });
   }
-  // End Section - Three Text Blocks | Image Transitions | Precise 150px Triggers
+  // End Section - Three Text Blocks | Image Transitions
 
 
- 
-  // Begin Section - Zoom Image | Scrub */
+  // ------------------------------------
+  // Begin Section - Zoom Image | Scrub
+  // ------------------------------------ */
 
   // Make sure image fills viewport on load and resize
   function sizeImage() {
@@ -309,11 +298,12 @@ lenis.on("scroll", ScrollTrigger.update);
       }
     }
   );
-  // End Section - Zoom Image | Scrub
+  // End Section - Zoom Image | Scrub */
 
-  // ---------------------------------------------------------------------------
+  
+  // ------------------------------------
   // Begin Section - Horizontal RTL | Continuous Scrolling
-  // ---------------------------------------------------------------------------
+  // ------------------------------------
   if (document.querySelector('.horizontal-rtl-section')) {
     const section = document.querySelector('.horizontal-rtl-section');
     const container = section.querySelector('.horizontal-rtl-container');
@@ -369,6 +359,6 @@ lenis.on("scroll", ScrollTrigger.update);
     // Rebuild on width/orientation changes
     RebuildRegistry.register(buildHorizontal);
   }
-  // End Section - Horizontal RTL | Continuous Scrolling
+  // End Section - Horizontal RTL | Continuous Scrolling */
 
 })
