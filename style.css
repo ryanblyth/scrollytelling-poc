@@ -309,3 +309,103 @@ body {
   }
 }
 /* End Section - Horizontal RTL */
+
+/* Begin Section - Animated Bar Chart */
+.chart-section {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background:#667eea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-content {
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.chart-content h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.chart-content p {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+}
+
+.chart-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 767px) {
+  .chart-section {
+    padding: 2rem 1rem;
+  }
+  
+  .chart-content h2 {
+    font-size: 2rem;
+  }
+  
+  .chart-content p {
+    font-size: 1rem;
+  }
+  
+  .chart-container {
+    padding: 1rem;
+  }
+}
+/* End Section - Animated Bar Chart */
+
+/* Begin Section - Chart Transition Buffer */
+.chart-transition-section {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background:#667eea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-transition-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.chart-transition-content h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.chart-transition-content p {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+@media (max-width: 767px) {
+  .chart-transition-section {
+    padding: 2rem 1rem;
+  }
+  
+  .chart-transition-content h2 {
+    font-size: 2rem;
+  }
+  
+  .chart-transition-content p {
+    font-size: 1.1rem;
+  }
+}
+/* End Section - Chart Transition Buffer */

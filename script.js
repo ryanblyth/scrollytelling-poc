@@ -360,4 +360,128 @@ lenis.on("scroll", ScrollTrigger.update);
   }
   // End Section - Horizontal RTL | Continuous Scrolling
 
+  // ------------------------------------
+  // Begin Section - Animated Bar Chart | ScrollTrigger
+  // ------------------------------------
+  if (document.querySelector('#animated-bar-chart')) {
+    // Chart data - starting with all bars at 0
+    const finalData = [25, 50, 75, 100];
+    const categories = ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024'];
+    
+    // Chart configuration
+    const options = {
+      series: [{
+        name: 'Performance',
+        data: [0, 0, 0, 0] // Start with all bars at 0
+      }],
+      chart: {
+        height: 400,
+        type: 'bar',
+        background: 'transparent',
+        toolbar: {
+          show: false
+        },
+        animations: {
+          enabled: false // Disable built-in animations, we'll control with GSAP
+        }
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: false,
+          columnWidth: '60%',
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val) {
+          return Math.round(val) + '%';
+        },
+        style: {
+          fontSize: '14px',
+          fontWeight: 'bold',
+          colors: ['#fff']
+        }
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: categories,
+        labels: {
+          style: {
+            colors: '#333',
+            fontSize: '12px'
+          }
+        }
+      },
+      yaxis: {
+        title: {
+          text: 'Performance (%)',
+          style: {
+            color: '#333'
+          }
+        },
+        labels: {
+          style: {
+            colors: '#333'
+          },
+          formatter: function (val) {
+            return Math.round(val);
+          }
+        },
+        max: 100
+      },
+      fill: {
+        type: 'solid'
+      },
+      colors: ['#764ba2'],
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return Math.round(val) + '%'
+          }
+        }
+      },
+      grid: {
+        borderColor: '#e7e7e7',
+        row: {
+          colors: ['#f3f3f3', 'transparent'],
+          opacity: 0.5
+        },
+      }
+    };
+
+    // Create the chart
+    const chart = new ApexCharts(document.querySelector("#animated-bar-chart"), options);
+    chart.render();
+
+    // ScrollTrigger animation for bars with pinning
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '.chart-section',
+        start: 'top top', // Pin when section reaches top
+        end: '+=150%', // Extended pin: 100% for animation + 50% hold time
+        scrub: true, // Smooth scrubbing
+        pin: true, // Pin the section while animating
+        anticipatePin: 1, // Smooth pin transitions
+        onUpdate: (self) => {
+          // Animation completes at 66.7% progress (first 2/3 of pinned duration)
+          // Last 1/3 provides hold time for better UX
+          const animationProgress = Math.min(self.progress * 1.5, 1);
+          const animatedData = finalData.map(value => value * animationProgress);
+          
+          // Update chart data
+          chart.updateSeries([{
+            name: 'Performance',
+            data: animatedData
+          }]);
+        }
+      }
+    });
+  }
+  // End Section - Animated Bar Chart | ScrollTrigger
+
 })
