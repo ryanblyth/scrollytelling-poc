@@ -1,6 +1,24 @@
 // Load DOM
 document.addEventListener("DOMContentLoaded", (event) =>{
 
+
+  // ------------------------------------
+  // ScrollTrigger Refresh & Resize Handling
+  // ------------------------------------
+  
+  // Refresh ScrollTrigger on load and resize
+  window.addEventListener('load', () => {
+    ScrollTrigger.refresh();
+  });
+  
+  window.addEventListener('resize', () => {
+    // Debounced resize handler
+    clearTimeout(window.resizeTimeout);
+    window.resizeTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 250);
+  });
+
 // ------------------------------------
 // Prevent Scroll Position Restoration on Refresh
 // This is a minimal, safe approach that doesn't interfere with normal page loading
@@ -102,6 +120,65 @@ lenis.on("scroll", ScrollTrigger.update);
       unregister: fn => rebuildFns.delete(fn)
     };
   })();
+
+
+
+  // ------------------------------------
+  // Begin Section - Hero Text Panel | Slide Up & Pin
+  // ------------------------------------
+  if (document.querySelector('.hero-text-panel')) {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // Mobile override: force enable animations on mobile devices
+    const isMobile = window.innerWidth <= 768;
+    const shouldEnableMotion = !prefersReducedMotion || isMobile;
+    
+    if (shouldEnableMotion) {
+      // GSAP animation for users who prefer motion
+      const heroTextPanel = document.querySelector('.hero-text-panel');
+      
+      // Set initial state - CSS already hides it, just ensure GSAP takes control
+      gsap.set(heroTextPanel, {
+        y: window.innerHeight,
+        opacity: 1,
+        visibility: "visible",
+        clearProps: "transform,visibility" // Remove CSS transform and visibility, let GSAP handle positioning
+      });
+      
+      // Create ScrollTrigger using the same smooth pattern as the Text Over Image section
+      gsap.fromTo(
+        heroTextPanel,
+        { y: "150vh" },  // from: start below viewport (like Text Over Image)
+        {
+          y: "0vh",      // to: final position - very visible and comfortable to read
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: '+=100%',
+            scrub: true,
+            pin: true,
+            pinSpacing: true,
+            invalidateOnRefresh: true,  // Key for mobile compatibility
+            onStart: () => {
+              // Animation started
+            },
+            onUpdate: (self) => {
+              // Animation progress updates
+            },
+            onComplete: () => {
+              // Animation completed
+            }
+          }
+        }
+      );
+      
+
+    }
+    // If prefers-reduced-motion, CSS sticky will handle positioning naturally
+  }
+  // End Section - Hero Text Panel | Slide Up & Pin
+
 
 
   // ------------------------------------

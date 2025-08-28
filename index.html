@@ -10,9 +10,62 @@
 </head>
 <body>
 
-  <section class="hero">
-    <h1>Hero section</h1>
+  <section class="hero" aria-label="Highland Mary Trail hero">
+    <div class="hero-image-layer" aria-hidden="true">
+      <img
+        src="images/spires-4032x3024.webp"
+        alt="Spires in the Colorado San Juan Mountains"
+        class="hero-img"
+        width="4032" height="3024" loading="eager" decoding="async"
+      />
+      <div class="hero-vignette"></div>
+    </div>
+
+    <!-- Always-visible title/subtitle/quick stats (above-the-fold text) -->
+    <header class="hero-heading">
+      <h1 class="place-title">Highland Mary Trail</h1>
+      <p class="place-subtitle">San Juan Mountains • Weminuche Wilderness</p>
+
+      <!-- Quick stats row: concise, indexable text -->
+      <ul class="quick-stats" aria-label="Trail quick statistics">
+        <li><strong>Nearest town:</strong> Silverton</li>
+        <li><strong>Elevation:</strong> 10,400–12,320 ft</li>
+        <li><strong>Distance:</strong> 6.0 mi RT • 7.3 mi loop</li>
+      </ul>
+    </header>
+
+    <!-- Expanded stats panel that will scroll up & pin -->
+    <div class="hero-text-panel" id="heroTextPanel" aria-label="Trail details">
+      <div class="panel-card">
+        <h2 class="visually-hidden">Trail details</h2>
+        <ul class="stats">
+          <li><strong>Trailhead (lat, lon):</strong> 37.764266, −107.579498</li>
+          <li><strong>Elevation gain:</strong> ~1,530 ft (to lakes) • 2,120 ft (loop)</li>
+          <li><strong>Difficulty:</strong> Moderate (high altitude)</li>
+          <li><strong>Best season:</strong> Late Jun–Sep</li>
+          <li><strong>Access:</strong> CR 4 / FR 589; last 0.75 mi rough for 2WD</li>
+          <li><strong>Wilderness rules:</strong> No drones; no bikes; groups ≤15; no lakeshore camping; filter water</li>
+          <li class="blurb">
+            High alpine basins dotted with tarns, summer wildflowers, and sweeping Divide views.
+          </li>
+        </ul>
+      </div>
+    </div>
   </section>
+
+
+
+
+    <!-- Begin Section - Next Section Placeholder -->
+    <section class="next-section">
+      <h2>Next section content...</h2>
+    </section>
+    <!-- End Section - Next Section Placeholder -->
+  
+
+
+
+
 
   <!-- Begin Section - Text Over Image | Slide | From Bottom | Scrub -->
   <section class="section_image_sticky_text-from-bottom_scrub image-pin-section">
