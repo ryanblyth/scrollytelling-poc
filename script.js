@@ -140,10 +140,8 @@ lenis.on("scroll", ScrollTrigger.update);
       
       // Set initial state - CSS already hides it, just ensure GSAP takes control
       gsap.set(heroTextPanel, {
-        y: window.innerHeight,
-        opacity: 1,
-        visibility: "visible",
-        clearProps: "transform,visibility" // Remove CSS transform and visibility, let GSAP handle positioning
+        y: "150vh",
+        opacity: 1
       });
       
       // Create ScrollTrigger using the same smooth pattern as the Text Over Image section
@@ -159,23 +157,11 @@ lenis.on("scroll", ScrollTrigger.update);
             scrub: true,
             pin: true,
             pinSpacing: true,
-            invalidateOnRefresh: true,  // Key for mobile compatibility
-            onStart: () => {
-              // Animation started
-            },
-            onUpdate: (self) => {
-              // Animation progress updates
-            },
-            onComplete: () => {
-              // Animation completed
-            }
+            invalidateOnRefresh: true
           }
         }
       );
-      
-
     }
-    // If prefers-reduced-motion, CSS sticky will handle positioning naturally
   }
   // End Section - Hero Text Panel | Slide Up & Pin
 
